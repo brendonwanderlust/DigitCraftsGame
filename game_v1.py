@@ -1,51 +1,39 @@
-class Hero(object):
+class Character(object):
     def __init__(self):
         self.health = 10
         self.power = 5
-    
+        self.type = 'character'
+
+
+    def alive(self):
+        return self.health > 0
+
     def attack(self, enemy):
         enemy.health -= self.power
-        print "You do %d damage to the goblin." % self.power
+        print "%d damage was done to the %s" % (self.power, enemy.type)
         if enemy.health <= 0:
-            print "The goblin is dead"
+            print "The %s has died" % (enemy.type)
     
-    def alive(self):
-        if self.health > 0:
-            return True
-        else:
-            return False
-
     def health_status(self):
-        print "You have %d health and %d power." % (self.health, self.power)
+        print "The %s has %d health and %d power." % (self.type, self.health, self.power)
 
+class Hero(Character):
+    def __init__(self):
+        self.health = 10
+        self.power = 5
+        self.type = 'Hero'        
 
-class Goblin(object):
+class Goblin(Character):
     def __init__(self):
         self.health = 6
         self.power = 2
-
-    def attack(self, enemy):
-        enemy.health -= self.power
-        print "The goblin does %d damage to you." % self.power
-        if enemy.health <= 0:
-            print "You are dead."
-    
-    def alive(self):
-         if self.health > 0:
-            return True
-         else:
-            return False
-
-    def health_status(self):
-        print "The goblin has %d health and %d power." % (self.health, self.power)
-    
-
+        self.type = 'Goblin'
 
 def main():
     barry_the_hero = Hero()
     steve_the_goblin = Goblin()
 
-    while steve_the_goblin.alive() and barry_the_hero.alive():
+    while steve_the_goblin.alive and barry_the_hero.alive():
         barry_the_hero.health_status()
         steve_the_goblin.health_status()
         print
@@ -70,6 +58,4 @@ def main():
             # Goblin attacks hero
             steve_the_goblin.attack(barry_the_hero)
             
-
-
 main()
